@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-void text-ink font-sans antialiased;
+    /* Keep the control surface clear of translucent system bars on mobile. */
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+  }
+
+  /* Numeric readouts align like a control-room gauge cluster */
+  .readout {
+    @apply font-mono tabular-nums tracking-tight;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-signal ring-offset-2 ring-offset-void;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0e1218;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #222b36;
+    border: 2px solid #0e1218;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2e3a49;
+  }
+}
+
+@layer components {
+  /* The enclosure: every panel is a machined plate, not a floating card */
+  .plate {
+    @apply relative rounded-panel border border-hairline bg-panel shadow-panel;
+  }
+
+  .plate-inset {
+    @apply rounded-panel border border-hairline bg-surface;
+  }
+
+  /* Hairline grid used behind the command centre header */
+  .grid-etch {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
